@@ -1,0 +1,25 @@
+----------------------------------------------------------------------------------------------------------------------
+PART 1
+----------------------------------------------------------------------------------------------------------------------
+Executar fitxer part1.py
+
+
+----------------------------------------------------------------------------------------------------------------------
+PART 2
+----------------------------------------------------------------------------------------------------------------------
+a) 
+Executant el següent, hem obtingut el numero de certificats revocats:
+openssl crl -in TERENASSLCA3.crl -inform DER -out CRL.pem
+openssl crl -in CRL.pem  -noout -text >> CRL.txt
+python comptar_fitxers_revocats.py
+
+Numero de certificats revocats: 6587
+
+b)
+Executant el següent, una vegada s'ha generat el fitxer estatus.txt hem trobat la resposta a les preguntes:
+openssl x509 -inform DER -in TERENASSLCA3.crt -out TERENASSLCA3CRT.pem -text
+openssl x509 -inform DER -in DigiCertAssuredIDRootCA.crt -out DigiCertAssuredIDRootCACRT.pem -text
+openssl ocsp -issuer DigiCertAssuredIDRootCACRT.pem -cert TERENASSLCA3CRT.pem -url http://ocsp.digicert.com -text -out estatus.txt
+
+Estatus del certificat: Good
+Validesa de l'estatus del certificat: Jan  1 20:11:48 2021 GMT 
